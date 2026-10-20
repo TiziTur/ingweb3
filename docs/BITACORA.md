@@ -13,7 +13,8 @@ reemplazó la aplicación en Tomcat y el backend arrancó con perfil `mysqlprod`
 usuarios en la base de la VM.
 
 **Cómo se probó:** login con `admin` y `GET /api/v1/ordenes` por HTTPS
-(`https://iw3turina.duckdns.org`) devolvió 200.
+(`https://iw3turina.duckdns.org`) devolvió 200. Después se corrió la colección completa de Postman con el entorno
+"IW3 - VM": 33 tests, 0 errores.
 
 **Ojo:** desde este deploy, `https://<dominio>/api/v1/products` (URL del TP2) ya no existe.
 
