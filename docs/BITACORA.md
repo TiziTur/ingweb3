@@ -5,6 +5,18 @@ Formato: fecha, quién (persona o "IA a pedido de X"), qué se hizo, archivos pr
 
 ---
 
+## 2026-10-20 - Deploy: pedir la contraseña de sudo al principio (IA a pedido de Tiziano)
+
+**Qué pasó:** al correr `deploy.sh` en segundo plano (`nohup ./deploy.sh &`) el proceso quedó
+`Stopped` justo después de "Clonando": el `sudo rm -rf` pedía la contraseña y un proceso en segundo
+plano no puede leerla de la terminal.
+
+**Qué se hizo:** `infra/deploy.sh` ahora ejecuta `sudo -v` al principio (pide la contraseña una sola
+vez) y se documentó que hay que correrlo en primer plano. Archivos: `infra/deploy.sh`, `README.md`,
+`docs/DOCUMENTACION.md`, Word regenerado.
+
+---
+
 ## 2026-10-20 - Arranque del proyecto (IA a pedido de Tiziano)
 
 **Qué se hizo**

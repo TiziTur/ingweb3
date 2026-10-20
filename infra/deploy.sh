@@ -4,6 +4,9 @@
 #
 # Uso (en la VM):   ~/infra/deploy.sh
 #
+# Correrlo en primer plano (sin "&" ni nohup): al principio pide la contraseña de sudo.
+# Si se corre en segundo plano, sudo no puede leer la contraseña y el script queda "Stopped".
+#
 # Qué hace:
 #   1. Clona la rama main del repo del grupo en /tmp
 #   2. Compila el .war con Maven dentro de un contenedor Docker (no hace falta Maven en la VM)
@@ -31,6 +34,9 @@ if ! grep -qs "mysqlprod" "$INFRA/tomcat/conf/catalina.properties" "$INFRA/tomca
 	echo "y volvé a correr el deploy."
 	exit 1
 fi
+
+# Pide la contraseña de sudo una sola vez, al principio (se usa para borrar archivos que crea Docker como root)
+sudo -v
 
 echo ">> Clonando $REPO ($RAMA)"
 cd /tmp

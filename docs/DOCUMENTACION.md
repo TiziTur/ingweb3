@@ -507,6 +507,10 @@ Diferencias con el script original: clona nuestro repo y copia el `.war` con `cp
 Con `mv` fallaba por permisos: Maven corre como `root` dentro del contenedor y la carpeta `target`
 queda de `root`.
 
+El script se ejecuta en primer plano (`~/infra/deploy.sh`, sin `&` ni `nohup`), porque al principio
+pide la contraseña de `sudo` con `sudo -v`. Si se ejecuta en segundo plano, `sudo` no puede leer la
+contraseña desde la terminal y el proceso queda detenido (`Stopped`).
+
 # 13. Decisiones tomadas
 
 | Decisión | Alternativa descartada | Motivo |

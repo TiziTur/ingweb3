@@ -116,7 +116,7 @@ Todos empiezan con `/api/v1/ordenes`. La orden se identifica por su `numeroOrden
 ## Deploy en la VM
 
 1. Copiar `infra/deploy.sh` a `~/infra/deploy.sh` en la VM y darle permisos (`chmod +x`).
-2. Ejecutar `~/infra/deploy.sh`.
+2. Ejecutar `~/infra/deploy.sh` **en primer plano** (sin `&`): al principio pide la contraseña de sudo de la VM.
 
 El script clona este repo, compila el `.war` y reemplaza la aplicación en Tomcat. Más detalle en
 [docs/DOCUMENTACION.md](docs/DOCUMENTACION.md), sección "Deploy".
