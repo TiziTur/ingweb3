@@ -1409,6 +1409,56 @@
           ]
         },
         {
+          "name": "Login con contraseña incorrecta -> 401",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "login"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "incorrecta",
+                  "type": "text"
+                }
+              ]
+            },
+            "description": "Un login con contraseña incorrecta tiene que responder 401 (no 500)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 401\", function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "Sin token -> 401",
           "request": {
             "method": "GET",

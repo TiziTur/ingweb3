@@ -43,7 +43,10 @@ public class AuthRestController extends BaseRestController {
 
 
 	
-	@PostMapping(value = Constants.URL_LOGIN, produces = MediaType.TEXT_PLAIN_VALUE)
+	// Sin "produces": si el login es correcto devuelve el token como texto, y si falla devuelve el
+	// error en JSON (StandartResponse). Con produces=TEXT_PLAIN el error no se podía convertir a texto
+	// y la respuesta terminaba siendo 500 en vez de 401.
+	@PostMapping(value = Constants.URL_LOGIN)
 	public ResponseEntity<?> loginExternalOnlyToken(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
 		Authentication auth = null;
 		try {

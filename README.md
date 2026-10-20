@@ -74,7 +74,8 @@ O desde el IDE, ejecutando `Iw3Application`. Por defecto arranca con el perfil `
 ## Usuarios
 
 Se crean solos la primera vez que arranca (clase `DatosIniciales`). La contraseña de todos es
-la de `usuarios.password.inicial` en `application.properties` (en desarrollo: `123456`).
+`123456` en la PC. En la VM es otra, definida en la variable de entorno `USUARIOS_PASSWORD`
+(archivo `~/infra/.env` de la VM, que no está en el repo); pedísela al grupo.
 
 | Usuario | Rol | Qué puede hacer |
 |---|---|---|
@@ -109,7 +110,9 @@ Todos empiezan con `/api/v1/ordenes`. La orden se identifica por su `numeroOrden
 ## Probar con Postman
 
 1. Importar `postman/IW3-Integrador.postman_collection.json` y `postman/IW3-Local.postman_environment.json`.
-2. Elegir el entorno **IW3 - Local**.
+2. Elegir el entorno **IW3 - Local**. Para probar la VM se usa **IW3 - VM** (importar también
+   `postman/IW3-VM.postman_environment.json`) y hay que completar `passwordUsuarios` con la contraseña
+   de la VM en la pestaña Environments, columna "Current value".
 3. Correr la colección completa con el **Runner** (en orden). Primero hace login con todos los usuarios,
    después recorre una orden completa y al final prueba los errores esperados.
 

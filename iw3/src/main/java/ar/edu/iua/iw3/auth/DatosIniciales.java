@@ -1,6 +1,7 @@
 package ar.edu.iua.iw3.auth;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,11 @@ import lombok.extern.slf4j.Slf4j;
  * Crea los roles y un usuario por cada sistema, solo si todavía no existen.
  * Así cualquier integrante puede levantar el proyecto con la base vacía y ya tener usuarios.
  *
- * Usuarios creados (la contraseña es "usuarios.password.inicial" de application.properties):
+ * Si un usuario ya existe pero su contraseña no es la configurada, se la actualiza.
+ * Así, para cambiar la contraseña en la VM alcanza con cambiar la variable de entorno
+ * USUARIOS_PASSWORD y reiniciar el backend.
+ *
+ * Usuarios (la contraseña es "usuarios.password.inicial" de application.properties):
  *   admin    -> ROLE_ADMIN    (puede todo)
  *   sap      -> ROLE_SAP      (punto 1: envía órdenes)
  *   tms      -> ROLE_TMS      (puntos 2 y 5: balanza)
@@ -65,7 +70,16 @@ public class DatosIniciales implements CommandLineRunner {
 	}
 
 	private void crearUsuario(String username, Role rol) {
-		if (userDAO.findOneByUsernameOrEmail(username, username).isPresent()) {
+		Optional<User> existente = userDAO.findOneByUsernameOrEmail(username, username);
+		if (existente.isPresent()) {
+			// Ya existe: solo se actualiza la contraseña si cambió la configurada.
+			// matches() compara el texto plano con el hash BCrypt guardado.
+			User u = existente.get();
+			if (!passwordEncoder.matches(passwordInicial, u.getPassword())) {
+				u.setPassword(passwordEncoder.encode(passwordInicial));
+				userDAO.save(u);
+				log.info("Actualizando contraseña del usuario {}", username);
+			}
 			return;
 		}
 		User u = new User();

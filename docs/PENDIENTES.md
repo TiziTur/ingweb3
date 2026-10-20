@@ -16,7 +16,8 @@ Lista de lo que falta. Al terminar algo, marcarlo con `[x]` y anotarlo en `BITAC
 - [ ] Cada integrante: clonar el repo, levantar MySQL y correr la colección en su PC
 - [x] Deploy en la VM con `infra/deploy.sh`
 - [x] Correr la colección de Postman con el entorno "IW3 - VM"
-- [ ] Cambiar la contraseña de los usuarios en la VM (hoy es `123456` y la URL es pública)
+- [x] Contraseña de los usuarios por variable de entorno (`USUARIOS_PASSWORD`)
+- [ ] Cargar `USUARIOS_PASSWORD` en la VM y redesplegar (ver BITACORA)
 - [ ] Repasar entre todos el código completo (ver "Preguntas para practicar" en DOCUMENTACION.md)
 - [ ] Presentación (máximo 15 minutos, repartida entre los 4)
 

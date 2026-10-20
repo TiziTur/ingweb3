@@ -425,18 +425,40 @@ corresponden. Esto es requisito del final, pero se hizo desde el principio porqu
 En el controlador cada método tiene `@PreAuthorize`, por ejemplo
 `@PreAuthorize("hasAnyRole('ADMIN','TMS')")`. Spring agrega el prefijo `ROLE_` al comparar.
 
-## 8.3. Usuarios iniciales
+## 8.3. Usuarios iniciales y contraseñas
 
 La clase `auth/DatosIniciales` se ejecuta al arrancar (implementa `CommandLineRunner`) y crea los
 roles y los cinco usuarios si todavía no existen. Así cualquiera puede levantar el proyecto con la
-base vacía. La contraseña sale de `usuarios.password.inicial` (en desarrollo `123456`; en la VM se
-cambia con la variable de entorno `USUARIOS_PASSWORD`).
+base vacía.
 
-## 8.4. Ajuste en SecurityConfiguration
+La contraseña de los cinco usuarios sale de `usuarios.password.inicial`, que en
+`application.properties` vale `${USUARIOS_PASSWORD:123456}`: si existe la variable de entorno
+`USUARIOS_PASSWORD` se usa esa, y si no, `123456`.
 
-Se agregó `.requestMatchers("/error").permitAll()`. Sin esto, cuando un usuario sin permiso llamaba a
-un endpoint, Spring redirigía internamente a `/error`, esa ruta también pedía autenticación, y la
-respuesta terminaba siendo 401 en lugar de 403.
+Si un usuario ya existe pero su contraseña no coincide con la configurada, `DatosIniciales` se la
+actualiza (lo controla con `passwordEncoder.matches()`, que compara el texto con el hash BCrypt
+guardado). Por eso:
+
+- **En la PC** de cada integrante no se define la variable y la contraseña es `123456`.
+- **En la VM** la variable está definida en `~/infra/.env` (que no está en el repo) y se pasa al
+  contenedor del backend desde `docker-compose.yml`. Para cambiar la contraseña alcanza con cambiar
+  ese valor y reiniciar el backend.
+
+Las contraseñas se guardan cifradas con **BCrypt**, nunca en texto plano. BCrypt es un algoritmo
+pensado para contraseñas: es lento a propósito y agrega una "sal" aleatoria, así que dos usuarios con
+la misma contraseña tienen hashes distintos.
+
+## 8.4. Ajustes a la seguridad del proyecto base
+
+- **`/error` permitido.** Se agregó `.requestMatchers("/error").permitAll()` en
+  `SecurityConfiguration`. Sin esto, cuando un usuario sin permiso llamaba a un endpoint, Spring
+  redirigía internamente a `/error`, esa ruta también pedía autenticación, y la respuesta terminaba
+  siendo 401 en lugar de 403.
+- **Login con contraseña incorrecta.** En `AuthRestController` se quitó
+  `produces = MediaType.TEXT_PLAIN_VALUE` del login. Ese atributo obligaba a responder siempre texto
+  plano: cuando el login fallaba, el error (`StandartResponse`, que es JSON) no se podía convertir a
+  texto y la respuesta era 500. Ahora un login correcto devuelve el token como texto y uno incorrecto
+  devuelve 401 con el error en JSON.
 
 # 9. Configuración
 
@@ -457,7 +479,7 @@ compilar.
 | Propiedad | Valor por defecto | Para qué |
 |-----------------------------------|--------------------------------|-----------------------------------------|
 | `carga.detalle.frecuencia.segundos` | 10 | Cada cuánto se guarda un detalle de carga |
-| `usuarios.password.inicial` | `123456` (o `USUARIOS_PASSWORD`) | Contraseña de los usuarios iniciales |
+| `usuarios.password.inicial` | `123456`, o la variable `USUARIOS_PASSWORD` | Contraseña de los cinco usuarios (ver 8.3) |
 | `spring.mail.username` / `password` | `SMTP_USER` / `SMTP_PASS` | Cuenta de mail para la alarma (final) |
 
 Las contraseñas de mail no están en el repo: se pasan por variables de entorno.
@@ -491,7 +513,11 @@ preset o el neto por balanza). El request del punto 1 genera un número de orden
 ejecución, y el del punto 2 guarda la contraseña generada en una variable. Por eso la colección
 completa se puede correr con el **Runner** las veces que se quiera.
 
-Resultado de la última corrida: 29 requests, 33 tests, 0 fallas.
+Resultado de la última corrida: 30 requests, 34 tests, 0 fallas (en la PC y en la VM).
+
+En el entorno `IW3-VM` la variable `passwordUsuarios` está vacía a propósito: la contraseña de la VM
+no se sube al repo. Cada integrante la completa en Postman (pestaña Environments, columna "Current
+value"), que queda solo en su PC.
 
 # 12. Deploy en la VM
 
@@ -526,6 +552,7 @@ contraseña desde la terminal y el proceso queda detenido (`Stopped`).
 | Datos descartados responden 400 | Responder 200 e ignorarlos | El sistema de carga se entera de que el dato no se usó |
 | Roles por sistema desde el parcial | Dejarlos para el final | Son pocas líneas y evitan que un sistema use endpoints de otro |
 | Usuarios creados al arrancar | Insertarlos a mano con SQL | Cualquiera levanta el proyecto con la base vacía y ya puede probar |
+| Contraseña de usuarios por variable de entorno, actualizada al arrancar | Cambiarla a mano en la base | No queda en el repo y se cambia sin tocar código ni SQL |
 | Conciliación calculada, no guardada | Guardarla en una tabla | No puede quedar desactualizada |
 | Total de litros calculado, no guardado | Guardarlo en el camión | Ídem |
 | Frecuencia de detalle por tiempo desde el último guardado | Contar datos recibidos | Es lo que describe la consigna ("cada 10 segundos") |
@@ -577,3 +604,4 @@ El detalle de cada cambio está en `docs/BITACORA.md`. Resumen:
 | Fecha | Cambio |
 |----------|------------------------------------------------------------|
 | 20/10/2026 | Proyecto base limpio, modelo de datos, puntos 1 a 5, roles, auditoría, Swagger, Postman, deploy y documentación |
+| 20/10/2026 | Primer deploy en la VM; contraseña de usuarios por variable de entorno; login incorrecto responde 401 |

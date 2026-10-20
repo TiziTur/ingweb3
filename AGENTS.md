@@ -80,7 +80,8 @@ que un integrante del grupo use para seguir el proyecto. Leelo completo antes de
 
 Ver el README (sección "Entorno de desarrollo"). Resumen: MySQL en el puerto 33306 con usuario
 `iw3`/`iw3pass`, y `./mvnw spring-boot:run` dentro de `iw3/`. Los usuarios se crean solos
-(clase `auth/DatosIniciales.java`), todos con contraseña `123456` en desarrollo.
+(clase `auth/DatosIniciales.java`), todos con contraseña `123456` en desarrollo. En la VM la
+contraseña es otra y viene de la variable `USUARIOS_PASSWORD`: **nunca la escribas en el repo**.
 
 ## 7. Mapa rápido del código
 

@@ -5,6 +5,29 @@ Formato: fecha, quién (persona o "IA a pedido de X"), qué se hizo, archivos pr
 
 ---
 
+## 2026-10-20 - Contraseña de usuarios por variable de entorno y login 401 (IA a pedido de Tiziano)
+
+**Qué se hizo**
+
+- `DatosIniciales`: si un usuario ya existe y su contraseña no coincide con
+  `usuarios.password.inicial`, se la actualiza al arrancar. Así se puede cambiar la contraseña de la
+  VM con la variable de entorno `USUARIOS_PASSWORD` sin tocar la base.
+- `AuthRestController`: se quitó `produces = TEXT_PLAIN` del login. Con eso, una contraseña
+  incorrecta respondía 500 (el error en JSON no se podía convertir a texto); ahora responde 401.
+- Postman: request nuevo "Login con contraseña incorrecta -> 401". En el entorno `IW3-VM` se vació
+  `passwordUsuarios` para no subir la contraseña de la VM al repo.
+- Documentación: README, AGENTS.md, DOCUMENTACION.md (8.3, 8.4, 9.2, 11, 13) y Word regenerado.
+
+**Cómo se probó:** en local, con `USUARIOS_PASSWORD=PruebaCambio99` se actualizaron los cinco
+usuarios (login con la nueva: 200, con `123456`: rechazado); sin la variable volvieron a `123456`.
+Colección de Postman: 30 requests, 34 tests, 0 fallas.
+
+**Para aplicarlo en la VM:** agregar `USUARIOS_PASSWORD=...` a `~/infra/.env`, agregar
+`- USUARIOS_PASSWORD=${USUARIOS_PASSWORD}` en `environment` del servicio `backend` de
+`~/infra/docker-compose.yml`, y correr `~/infra/deploy.sh`.
+
+---
+
 ## 2026-10-20 - Primer deploy en la VM (Tiziano, con ayuda de IA)
 
 **Qué se hizo:** se reemplazó `~/infra/deploy.sh` de la VM por `infra/deploy.sh` del repo (el del
