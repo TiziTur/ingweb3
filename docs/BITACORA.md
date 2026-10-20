@@ -5,6 +5,20 @@ Formato: fecha, quién (persona o "IA a pedido de X"), qué se hizo, archivos pr
 
 ---
 
+## 2026-10-20 - Primer deploy en la VM (Tiziano, con ayuda de IA)
+
+**Qué se hizo:** se reemplazó `~/infra/deploy.sh` de la VM por `infra/deploy.sh` del repo (el del
+profesor quedó guardado como `~/infra/deploy.sh.profesor`) y se ejecutó. Compiló (`BUILD SUCCESS`),
+reemplazó la aplicación en Tomcat y el backend arrancó con perfil `mysqlprod`, creando los cinco
+usuarios en la base de la VM.
+
+**Cómo se probó:** login con `admin` y `GET /api/v1/ordenes` por HTTPS
+(`https://iw3turina.duckdns.org`) devolvió 200.
+
+**Ojo:** desde este deploy, `https://<dominio>/api/v1/products` (URL del TP2) ya no existe.
+
+---
+
 ## 2026-10-20 - Deploy: pedir la contraseña de sudo al principio (IA a pedido de Tiziano)
 
 **Qué pasó:** al correr `deploy.sh` en segundo plano (`nohup ./deploy.sh &`) el proceso quedó
