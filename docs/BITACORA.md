@@ -1,0 +1,45 @@
+# Bitácora
+
+Registro cronológico de lo que se hizo. La entrada más nueva va **arriba**.
+Formato: fecha, quién (persona o "IA a pedido de X"), qué se hizo, archivos principales y cómo se probó.
+
+---
+
+## 2026-10-20 - Arranque del proyecto (IA a pedido de Tiziano)
+
+**Qué se hizo**
+
+- Se copió el proyecto base del profesor (`magm3333/iw3_2026`, commit "Backend completo") en `iw3/`.
+- Se quitaron los ejemplos de clase, como pidió el profesor: paquetes `integration/cli1` y
+  `integration/cli2`, perfiles `cli1` y `cli2` (en `pom.xml` y `.properties`), las clases
+  `config/profile/*ScanConfig`, `Product`, `Category`, `AuthtestRestController`, el chat y el
+  gráfico de WebSocket y el `Scheduler` de ejemplo. Quedan los perfiles `mysqldev` y `mysqlprod`.
+- `application.properties`: perfil por defecto `mysqldev`, contraseña de mail por variable de
+  entorno (`SMTP_USER` / `SMTP_PASS`) y dos propiedades nuevas
+  (`carga.detalle.frecuencia.segundos` y `usuarios.password.inicial`).
+- Modelo: `Camion`, `Cisterna`, `Chofer`, `Cliente`, `Producto`, `Orden`, `EstadoOrden`,
+  `DetalleCarga`, `CambioEstado`, y sus repositorios.
+- Negocio: un `*Business` por entidad externa (sincroniza por `codigoExterno`) y `OrdenBusiness`
+  con los puntos 1 a 5, el control de estados y la auditoría.
+- Excepciones nuevas: `BadRequestException` (400) y `ConflictException` (409).
+- `OrdenRestController` con todos los endpoints, anotaciones de Swagger y `@PreAuthorize` por rol.
+- `DatosIniciales`: crea roles y usuarios (`admin`, `sap`, `tms`, `carga`, `operador`) al arrancar.
+- `SecurityConfiguration`: se permitió `/error` para que un 403 no se muestre como 401.
+- `infra/deploy.sh` adaptado al repo del grupo (clona `TiziTur/ingweb3` y copia el `.war` con `cp`).
+- Colección de Postman (`postman/`) con login, circuito completo, errores esperados y consultas.
+- Documentación: README, AGENTS.md, CLAUDE.md, `docs/DOCUMENTACION.md`, `docs/PENDIENTES.md`,
+  esta bitácora y el Word generado.
+
+**Cómo se probó**
+
+- Compilación como `.jar` y como `.war` (el `.war` es el que usa el deploy).
+- App levantada con perfil `mysqldev` contra MySQL 8 local.
+- Colección de Postman corrida con newman: 29 requests, 33 tests, 0 fallas.
+- Prueba manual de la frecuencia de guardado: 4 datos válidos en 11 segundos → se guardaron 2
+  detalles (el primero y el que llegó pasados los 10 segundos). Un dato con masa menor a la
+  anterior devolvió 400.
+- Prueba de sincronización: una segunda orden con el mismo `codigoExterno` de camión y otra
+  patente actualizó el camión y reemplazó sus cisternas.
+- Swagger UI accesible en `/swagger-ui.html`.
+
+**Pendiente de esta etapa:** probar el deploy en la VM.
