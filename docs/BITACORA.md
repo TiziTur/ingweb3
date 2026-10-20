@@ -26,6 +26,11 @@ Colección de Postman: 30 requests, 34 tests, 0 fallas.
 `- USUARIOS_PASSWORD=${USUARIOS_PASSWORD}` en `environment` del servicio `backend` de
 `~/infra/docker-compose.yml`, y correr `~/infra/deploy.sh`.
 
+**Aplicado en la VM (20/10/2026 18:04):** se agregó la variable a `~/infra/.env` y a
+`~/infra/docker-compose.yml` (servicio `backend`) y se redesplegó. El log mostró
+"Actualizando contraseña del usuario ..." para los cinco usuarios y `Perfil activo mysqlprod`.
+La contraseña nueva la tiene el grupo por privado; no está en el repo.
+
 ---
 
 ## 2026-10-20 - Primer deploy en la VM (Tiziano, con ayuda de IA)

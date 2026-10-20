@@ -1,1 +1,9 @@
 /.metadata/
+
+# Configuración local de cada IDE (no se sube)
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath

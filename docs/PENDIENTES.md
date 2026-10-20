@@ -17,7 +17,7 @@ Lista de lo que falta. Al terminar algo, marcarlo con `[x]` y anotarlo en `BITAC
 - [x] Deploy en la VM con `infra/deploy.sh`
 - [x] Correr la colección de Postman con el entorno "IW3 - VM"
 - [x] Contraseña de los usuarios por variable de entorno (`USUARIOS_PASSWORD`)
-- [ ] Cargar `USUARIOS_PASSWORD` en la VM y redesplegar (ver BITACORA)
+- [x] Cargar `USUARIOS_PASSWORD` en la VM y redesplegar (ver BITACORA)
 - [ ] Repasar entre todos el código completo (ver "Preguntas para practicar" en DOCUMENTACION.md)
 - [ ] Presentación (máximo 15 minutos, repartida entre los 4)
 
