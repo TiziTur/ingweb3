@@ -27,6 +27,7 @@ El detalle de lo que falta está en [docs/PENDIENTES.md](docs/PENDIENTES.md).
 |---|---|
 | [docs/DOCUMENTACION.md](docs/DOCUMENTACION.md) | Documento completo: qué hace cada parte y por qué se hizo así. Es la fuente del Word. |
 | [docs/Documentacion_TP_Integrador.docx](docs/Documentacion_TP_Integrador.docx) | El mismo documento en Word. |
+| [docs/GUIA_ESTUDIO.md](docs/GUIA_ESTUDIO.md) | Guía para la defensa: la teoría de las clases y cómo se aplica en el TP, con preguntas de práctica. También en Word ([docs/Guia_Estudio_TP_Integrador.docx](docs/Guia_Estudio_TP_Integrador.docx)). |
 | [docs/BITACORA.md](docs/BITACORA.md) | Registro cronológico de lo que se fue haciendo. |
 | [docs/PENDIENTES.md](docs/PENDIENTES.md) | Lo que falta hacer y las dudas para consultar al profesor. |
 | [AGENTS.md](AGENTS.md) | Reglas para las IAs que trabajen en el proyecto. |

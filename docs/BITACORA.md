@@ -5,6 +5,23 @@ Formato: fecha, quién (persona o "IA a pedido de X"), qué se hizo, archivos pr
 
 ---
 
+## 2026-11-06 - Guía de estudio para la defensa (IA a pedido de Tiziano)
+
+**Qué se hizo**
+
+- Se transcribieron las grabaciones de todas las clases (4/8 al 20/10) y los dos videos de la consigna,
+  y con eso se armó `docs/GUIA_ESTUDIO.md`: para cada tema, la teoría vista en clase y cómo se aplica
+  en nuestro código, más un mapa de dónde está cada cosa, puntos que el profesor podría señalar,
+  40 preguntas de práctica y un guion para la presentación. Word: `docs/Guia_Estudio_TP_Integrador.docx`.
+- De los videos salieron dos respuestas a dudas de `PENDIENTES.md`: el grupo de 4 está permitido y la
+  contraseña de activación la genera el backend. Se agregó una duda nueva (frecuencia en la base).
+- `DOCUMENTACION.md` (y su Word): decisión de la contraseña marcada como confirmada.
+- README: se agregó la guía a la tabla de documentación.
+
+No se tocó código.
+
+---
+
 ## 2026-10-20 - Contraseña de usuarios por variable de entorno y login 401 (IA a pedido de Tiziano)
 
 **Qué se hizo**

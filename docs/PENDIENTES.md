@@ -19,7 +19,9 @@ Lista de lo que falta. Al terminar algo, marcarlo con `[x]` y anotarlo en `BITAC
 - [x] Contraseña de los usuarios por variable de entorno (`USUARIOS_PASSWORD`)
 - [x] Cargar `USUARIOS_PASSWORD` en la VM y redesplegar (ver BITACORA)
 - [ ] Repasar entre todos el código completo (ver "Preguntas para practicar" en DOCUMENTACION.md)
-- [ ] Presentación (máximo 15 minutos, repartida entre los 4)
+- [x] Guía de estudio con la teoría de las clases aplicada al TP (`docs/GUIA_ESTUDIO.md` y su Word)
+- [ ] Presentación (15 a 20 minutos mostrando el sistema con Postman, repartida entre los 4; guion en
+      la sección 21 de la guía)
 
 ## Para el examen final
 
@@ -35,9 +37,10 @@ Lista de lo que falta. Al terminar algo, marcarlo con `[x]` y anotarlo en `BITAC
 
 ## Dudas para consultar al profesor
 
-1. **Somos 4 integrantes y la consigna dice grupos de hasta 3.** Confirmar que está permitido.
-2. ¿Quién genera la contraseña de activación? El diagrama la pone en el backend y la tabla de
-   estados dice "desde el sistema TMS". Hoy la genera el backend y se la devuelve al TMS.
+1. ~~Somos 4 integrantes y la consigna dice grupos de hasta 3.~~ **Resuelta:** en el video de
+   criterios el profesor dice "tenemos un grupo de cuatro, no hay problema con eso".
+2. ~~¿Quién genera la contraseña de activación?~~ **Resuelta:** en el video de la consigna dice
+   "nuestro backend genera una password de activación" (es lo que hicimos).
 3. ¿El sistema de carga tiene que mandar la contraseña en cada dato de detalle, o alcanza con la
    activación? Hoy alcanza con la activación.
 4. Si SAP manda una orden con un número que ya existe, ¿es error o actualización? Hoy es error (302).
@@ -45,4 +48,8 @@ Lista de lo que falta. Al terminar algo, marcarlo con `[x]` y anotarlo en `BITAC
 6. Para la alarma, ¿"configurable" alcanza con `application.properties` / variables de entorno,
    o tiene que poder cambiarse desde la interfaz?
 7. ¿El frontend puede estar dentro del backend (carpeta `static`), o lo quiere como proyecto separado?
-8. ¿Hay un formato de JSON fijo para lo que mandan SAP y TMS, o lo definimos nosotros?
+8. ~~¿Hay un formato de JSON fijo para lo que mandan SAP y TMS?~~ **Resuelta:** en el video de
+   criterios dice que "toda la definición de endpoint de la API queda a criterio de los grupos".
+9. En el video de la consigna el profesor dice que la frecuencia de guardado del detalle "se va a tener
+   que poder definir en nuestra base de datos". Hoy está en `application.properties`. Ver si hay que
+   pasarla a una tabla para el final.

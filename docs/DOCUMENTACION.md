@@ -1,7 +1,7 @@
 ---
 title: "Trabajo Integrador - Ingeniería Web 3"
 subtitle: "Sistema de administración de órdenes de carga de gas líquido - Documentación del desarrollo"
-date: "Última actualización: 20/10/2026"
+date: "Última actualización: 06/11/2026"
 lang: es
 toc-title: "Índice"
 ---
@@ -272,7 +272,8 @@ Respuesta **200**:
 ```
 
 Se decidió que el backend genere la contraseña y se la devuelva al TMS, porque el diagrama de la
-consigna la ubica en el backend ("se genera la password de activación").
+consigna la ubica en el backend ("se genera la password de activación"). En el video de la consigna
+el profesor lo confirma: "nuestro backend genera una password de activación".
 
 ## 6.3. Punto 3: activación de la carga
 
@@ -546,7 +547,7 @@ contraseña desde la terminal y el proceso queda detenido (`Stopped`).
 | Recibir el punto 1 con la entidad `Orden` directamente | Un DTO aparte o un deserializador | Menos clases; el negocio limpia los campos internos. Es lo que hace el proyecto base con `Product` |
 | Un `*Business` por entidad externa con `sincronizar()` | Una sola clase para todas | Sigue el patrón de clase (una clase de negocio por entidad) |
 | Actualizar las entidades externas si ya existen | Ignorar los datos nuevos | La consigna dice que los datos "deben sincronizarse" |
-| La password la genera el backend | La genera el TMS | El diagrama de la consigna la ubica en el backend. Pendiente de confirmar |
+| La password la genera el backend | La genera el TMS | El diagrama de la consigna la ubica en el backend, y el profesor lo confirma en el video de la consigna |
 | Estado como enum guardado como texto | Un número entero | Se lee mejor en el código y en la base |
 | Excepciones nuevas para 400 y 409 | Usar 500 o 404 para todo | Cada error tiene un código que dice qué pasó |
 | Datos descartados responden 400 | Responder 200 e ignorarlos | El sistema de carga se entera de que el dato no se usó |
@@ -605,3 +606,4 @@ El detalle de cada cambio está en `docs/BITACORA.md`. Resumen:
 |----------|------------------------------------------------------------|
 | 20/10/2026 | Proyecto base limpio, modelo de datos, puntos 1 a 5, roles, auditoría, Swagger, Postman, deploy y documentación |
 | 20/10/2026 | Primer deploy en la VM; contraseña de usuarios por variable de entorno; login incorrecto responde 401 |
+| 06/11/2026 | Guía de estudio (`docs/GUIA_ESTUDIO.md`) con la teoría de las clases aplicada al TP |
