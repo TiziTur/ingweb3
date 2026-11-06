@@ -5,6 +5,16 @@ Formato: fecha, quién (persona o "IA a pedido de X"), qué se hizo, archivos pr
 
 ---
 
+## 2026-11-06 - Guía de estudio completa (IA a pedido de Tiziano)
+
+**Qué se hizo:** se reescribió `docs/GUIA_ESTUDIO.md` (y su Word) para que sea autosuficiente:
+el sistema en cinco minutos, Spring desde cero (IoC, beans, anotaciones, Maven, perfiles, JPA, MVC,
+Security), un recorrido archivo por archivo con el porqué de cada decisión, el camino de un request
+de punta a punta, la teoría de la materia aplicada al TP, puntos débiles con respuesta y 85 preguntas
+de práctica. No se tocó código.
+
+---
+
 ## 2026-11-06 - Guía de estudio para la defensa (IA a pedido de Tiziano)
 
 **Qué se hizo**
